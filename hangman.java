@@ -9,14 +9,20 @@ import java.util.Scanner;
 class hangman {
 
     public static String get_password(){
-        final List<String> capitals = Arrays.asList("LONDON","MOSKOW","WARASSAW","LISSBON");
+        final List<String> capitals = Arrays.asList("LONDON","MOSKOW","WARASAW","LISBON","SAN MARINO", "LA PAZ","SANTO DOMINGO");
         final Random rand = new  Random();
         return capitals.get(rand.nextInt(capitals.size()));
     }
     public static String get_hashed(String radnomPassword){
-
+        String space = " ";
+        char cSpace = ' ';
         final int lenght = radnomPassword.length();
-        final String hashedPassword = new String(new char[lenght]).replace("\0", "_");
+        String hashedPassword = new String(new char[lenght]).replace("\0", "_");
+        for (int i = -1; (i = radnomPassword.indexOf(space, i + 1)) != -1; i++){
+        char[] password = hashedPassword.toCharArray();
+        password[i] = cSpace;
+        hashedPassword = String.valueOf(password);
+        }
         return hashedPassword;
 
     }
@@ -26,12 +32,18 @@ class hangman {
         String userInput = input.nextLine();
         
         userInput = userInput.toUpperCase();
+        char c = userInput.charAt(0);
         if (used_letters.contains(userInput)){
             System.out.println("Sorry this letter has been already used, please try again");
-            get_input(used_letters);
+            userInput = get_input(used_letters);
         } 
-        return userInput;       // getting back to line 31 get_input(used_letters); and returns previous userInput
-        
+        if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122)){
+
+            return userInput;       // getting back to line 31 get_input(used_letters); and returns previous userInput
+        }else {System.out.println("This is not alphabetic character");
+        userInput = get_input(used_letters);
+    }   
+        return userInput;
     }
 
     
