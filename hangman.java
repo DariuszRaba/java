@@ -9,7 +9,7 @@ import java.util.Scanner;
 class hangman {
 
     public static String get_password(){
-        final List<String> capitals = Arrays.asList("LONDON","MOSKOW","WARASAW","LISBON","SAN MARINO", "LA PAZ","SANTO DOMINGO");
+        final List<String> capitals = Arrays.asList("LONNDON","MOSSKOW","WARRASAW","LISSBON","SAN MARIINO", "LA PAAZ","SANNTO DOMINGO");
         final Random rand = new  Random();
         return capitals.get(rand.nextInt(capitals.size()));
     }
@@ -18,7 +18,7 @@ class hangman {
         char cSpace = ' ';
         final int lenght = radnomPassword.length();
         String hashedPassword = new String(new char[lenght]).replace("\0", "_");
-        for (int i = -1; (i = radnomPassword.indexOf(space, i + 1)) != -1; i++){
+        for (int i = 0; (i = radnomPassword.indexOf(space, i)) != -1; i++){
         char[] password = hashedPassword.toCharArray();
         password[i] = cSpace;
         hashedPassword = String.valueOf(password);
@@ -49,8 +49,8 @@ class hangman {
     
     public static String get_replace_password(String capital, String password, String letter){
         char c = letter.charAt(0);
-        for (int i = -1; (i = capital.indexOf(letter, i + 1)) != -1; i++){
-            System.out.println(i);
+        for (int i = 0; (i = capital.indexOf(letter, i)) != -1; i++){
+            // System.out.println(i);
             char[] passwordChar = password.toCharArray();
             passwordChar[i] = c;
             password = String.valueOf(passwordChar); 
@@ -75,11 +75,9 @@ class hangman {
         ArrayList<String> used_letters = new ArrayList<>();
         int life_points = 6;
         while (true){
-            // StringBuilder sbPassword = new StringBuilder();
-            // sbPassword.append(password);
+
             
             String letter = get_input(used_letters);
-            // letter = letter.toUpperCase();
             char c = letter.charAt(0);
             int isInPassword = capital.indexOf(c);
             if (isInPassword == -1){
